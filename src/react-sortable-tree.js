@@ -542,7 +542,7 @@ class ReactSortableTree extends Component {
 
   renderRow(
     row,
-    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength }
+    { listIndex, style, getPrevRow, matchKeys, swapFrom, swapDepth, swapLength, virtualizedAdditionalProps }
   ) {
     const { node, parentNode, path, lowerSiblingCounts, treeIndex } = row;
 
@@ -593,6 +593,7 @@ class ReactSortableTree extends Component {
         swapFrom={swapFrom}
         swapLength={swapLength}
         swapDepth={swapDepth}
+        virtualizedAdditionalProps={virtualizedAdditionalProps}
         {...sharedProps}
       >
         <NodeContentRenderer
@@ -600,6 +601,7 @@ class ReactSortableTree extends Component {
           isSearchMatch={isSearchMatch}
           isSearchFocus={isSearchFocus}
           canDrag={rowCanDrag}
+          virtualizedAdditionalProps={virtualizedAdditionalProps}
           toggleChildrenVisibility={this.toggleChildrenVisibility}
           {...sharedProps}
           {...nodeProps}
@@ -718,7 +720,7 @@ class ReactSortableTree extends Component {
                         path: rows[index].path,
                       })
               }
-              rowRenderer={({ index, style: rowStyle }) =>
+              rowRenderer={({ index, style: rowStyle, ...rest }) =>
                 this.renderRow(rows[index], {
                   listIndex: index,
                   style: rowStyle,
@@ -727,6 +729,7 @@ class ReactSortableTree extends Component {
                   swapFrom,
                   swapDepth: draggedDepth,
                   swapLength,
+                  virtualizedAdditionalProps:rest,
                 })
               }
               {...reactVirtualizedListProps}

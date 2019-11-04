@@ -2838,7 +2838,8 @@ function (_Component) {
           matchKeys = _ref9.matchKeys,
           swapFrom = _ref9.swapFrom,
           swapDepth = _ref9.swapDepth,
-          swapLength = _ref9.swapLength;
+          swapLength = _ref9.swapLength,
+          virtualizedAdditionalProps = _ref9.virtualizedAdditionalProps;
       var node = row.node,
           parentNode = row.parentNode,
           path = row.path,
@@ -2884,12 +2885,14 @@ function (_Component) {
         lowerSiblingCounts: lowerSiblingCounts,
         swapFrom: swapFrom,
         swapLength: swapLength,
-        swapDepth: swapDepth
+        swapDepth: swapDepth,
+        virtualizedAdditionalProps: virtualizedAdditionalProps
       }, sharedProps), React__default.createElement(NodeContentRenderer, _extends({
         parentNode: parentNode,
         isSearchMatch: isSearchMatch,
         isSearchFocus: isSearchFocus,
         canDrag: rowCanDrag,
+        virtualizedAdditionalProps: virtualizedAdditionalProps,
         toggleChildrenVisibility: this.toggleChildrenVisibility
       }, sharedProps, nodeProps)));
     }
@@ -2998,7 +3001,9 @@ function (_Component) {
             },
             rowRenderer: function rowRenderer(_ref14) {
               var index = _ref14.index,
-                  rowStyle = _ref14.style;
+                  rowStyle = _ref14.style,
+                  rest = _objectWithoutProperties(_ref14, ["index", "style"]);
+
               return _this5.renderRow(rows[index], {
                 listIndex: index,
                 style: rowStyle,
@@ -3008,7 +3013,8 @@ function (_Component) {
                 matchKeys: matchKeys,
                 swapFrom: swapFrom,
                 swapDepth: draggedDepth,
-                swapLength: swapLength
+                swapLength: swapLength,
+                virtualizedAdditionalProps: rest
               });
             }
           }, reactVirtualizedListProps));
