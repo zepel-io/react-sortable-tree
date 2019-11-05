@@ -396,6 +396,7 @@ class ReactSortableTree extends Component {
       //  an external element
       const newDraggingTreeData = draggingTreeData || instanceProps.treeData;
 
+      console.log(newDraggingTreeData)
       const addedResult = memoizedInsertNode({
         treeData: newDraggingTreeData,
         newNode: draggedNode,

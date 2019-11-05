@@ -2704,6 +2704,7 @@ function (_Component) {
         // Fall back to the tree data if something is being dragged in from
         //  an external element
         var newDraggingTreeData = draggingTreeData || instanceProps.treeData;
+        console.log(newDraggingTreeData);
         var addedResult = memoizedInsertNode({
           treeData: newDraggingTreeData,
           newNode: draggedNode,
