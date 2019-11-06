@@ -395,15 +395,6 @@ class ReactSortableTree extends Component {
       // Fall back to the tree data if something is being dragged in from
       //  an external element
       const newDraggingTreeData = draggingTreeData || instanceProps.treeData;
-
-      console.log({
-        treeData: newDraggingTreeData,
-        newNode: draggedNode,
-        depth: draggedDepth,
-        minimumTreeIndex: draggedMinimumTreeIndex,
-        expandParent: true,
-        getNodeKey: this.props.getNodeKey,
-      })
       const addedResult = memoizedInsertNode({
         treeData: newDraggingTreeData,
         newNode: draggedNode,
