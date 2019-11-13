@@ -36,7 +36,6 @@ import {
 import DndManager from './utils/dnd-manager';
 import classnames from './utils/classnames';
 import './react-sortable-tree.css';
-import { pure } from 'recompose';
 
 let treeIdCounter = 1;
 
@@ -108,7 +107,7 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(pure(ListWithRef));
+      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(ListWithRef);
       this.vStrength = createVerticalStrength(slideRegionSize);
       this.hStrength = createHorizontalStrength(slideRegionSize);
     }

@@ -2496,6 +2496,15 @@ var mergeTheme = function mergeTheme(props) {
   return merged;
 };
 
+var ListWithRef = function ListWithRef(listProps) {
+  var forwardedRef = listProps.forwardedRef,
+      rest = _objectWithoutProperties(listProps, ["forwardedRef"]);
+
+  return React__default.createElement(reactVirtualized.List, _extends({
+    ref: forwardedRef
+  }, rest));
+};
+
 var ReactSortableTree =
 /*#__PURE__*/
 function (_Component) {
@@ -2525,7 +2534,7 @@ function (_Component) {
     _this.treeNodeRenderer = _this.dndManager.wrapTarget(treeNodeRenderer); // Prepare scroll-on-drag options for this list
 
     if (isVirtualized) {
-      _this.scrollZoneVirtualList = (withScrolling.createScrollingComponent || withScrolling__default)(reactVirtualized.List);
+      _this.scrollZoneVirtualList = (withScrolling.createScrollingComponent || withScrolling__default)(ListWithRef);
       _this.vStrength = withScrolling.createVerticalStrength(slideRegionSize);
       _this.hStrength = withScrolling.createHorizontalStrength(slideRegionSize);
     }
