@@ -73,7 +73,7 @@ const mergeTheme = props => {
   return merged;
 };
 
-const ListWithRef = (listProps) => {
+const ListWithRef = React.forwardRef((listProps, parentRef) => {
   const {
     forwardedRef,
     ...rest
@@ -82,12 +82,12 @@ const ListWithRef = (listProps) => {
     if (typeof forwardedRef === 'function') {
       forwardedRef(ref);
     }
-    if (typeof listProps.ref === 'function') {
-      listProps.ref(ref);
+    if (typeof parentRef === 'function') {
+      parentRef(ref);
     }
   }
   return (<List ref={forwardRef} {...rest} />);
-}
+});
 
 class ReactSortableTree extends Component {
   constructor(props) {
