@@ -85,7 +85,7 @@ const ListWithRef = React.forwardRef((listProps, parentRef) => {
     if (typeof parentRef === 'function') {
       parentRef(ref);
     }
-    if (parentRef.current) {
+    if (parentRef.current !== undefined) {
       // eslint-disable-next-line no-param-reassign
       parentRef.current = ref;
     }
