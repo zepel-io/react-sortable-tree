@@ -2500,8 +2500,18 @@ var ListWithRef = function ListWithRef(listProps) {
   var forwardedRef = listProps.forwardedRef,
       rest = _objectWithoutProperties(listProps, ["forwardedRef"]);
 
+  var forwardRef = function forwardRef(ref) {
+    if (typeof forwardedRef === 'function') {
+      forwardedRef(ref);
+    }
+
+    if (typeof listProps.ref === 'function') {
+      listProps.ref(ref);
+    }
+  };
+
   return React__default.createElement(reactVirtualized.List, _extends({
-    ref: forwardedRef
+    ref: forwardRef
   }, rest));
 };
 
