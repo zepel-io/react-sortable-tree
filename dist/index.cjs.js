@@ -2508,6 +2508,11 @@ var ListWithRef = React__default.forwardRef(function (listProps, parentRef) {
     if (typeof parentRef === 'function') {
       parentRef(ref);
     }
+
+    if (parentRef.current) {
+      // eslint-disable-next-line no-param-reassign
+      parentRef.current = ref;
+    }
   };
 
   return React__default.createElement(reactVirtualized.List, _extends({

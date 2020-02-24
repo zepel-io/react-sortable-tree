@@ -2500,6 +2500,11 @@ var ListWithRef = React.forwardRef(function (listProps, parentRef) {
     if (typeof parentRef === 'function') {
       parentRef(ref);
     }
+
+    if (parentRef.current) {
+      // eslint-disable-next-line no-param-reassign
+      parentRef.current = ref;
+    }
   };
 
   return React.createElement(List, _extends({
