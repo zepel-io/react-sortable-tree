@@ -2509,7 +2509,7 @@ var ListWithRef = React__default.forwardRef(function (listProps, parentRef) {
       parentRef(ref);
     }
 
-    if (parentRef.current) {
+    if (parentRef.current !== undefined) {
       // eslint-disable-next-line no-param-reassign
       parentRef.current = ref;
     }
