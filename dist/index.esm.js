@@ -2488,7 +2488,7 @@ var mergeTheme = function mergeTheme(props) {
   return merged;
 };
 
-var ListWithRef = function ListWithRef(listProps) {
+var ListWithRef = React.forwardRef(function (listProps, parentRef) {
   var forwardedRef = listProps.forwardedRef,
       rest = _objectWithoutProperties(listProps, ["forwardedRef"]);
 
@@ -2497,15 +2497,15 @@ var ListWithRef = function ListWithRef(listProps) {
       forwardedRef(ref);
     }
 
-    if (typeof listProps.ref === 'function') {
-      listProps.ref(ref);
+    if (typeof parentRef === 'function') {
+      parentRef(ref);
     }
   };
 
   return React.createElement(List, _extends({
     ref: forwardRef
   }, rest));
-};
+});
 
 var ReactSortableTree =
 /*#__PURE__*/
