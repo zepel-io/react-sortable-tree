@@ -78,7 +78,15 @@ const ListWithRef = (listProps) => {
     forwardedRef,
     ...rest
   } = listProps;
-  return (<List ref={forwardedRef} {...rest} />);
+  const forwardRef = (ref) => {
+    if (typeof forwardedRef === 'function') {
+      forwardedRef(ref);
+    }
+    if (typeof listProps.ref === 'function') {
+      listProps.ref(ref);
+    }
+  }
+  return (<List ref={forwardRef} {...rest} />);
 }
 
 class ReactSortableTree extends Component {
