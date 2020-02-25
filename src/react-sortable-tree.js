@@ -103,6 +103,7 @@ class ReactSortableTree extends Component {
       treeNodeRenderer,
       isVirtualized,
       slideRegionSize,
+      scrollingComponent,
     } = mergeTheme(props);
 
     this.dndManager = new DndManager(this);
@@ -119,7 +120,8 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(ListWithRef);
+      const scrollingHoc = (typeof scrollingComponent === 'function') ? scrollingComponent : (createScrollingComponent || withScrolling);
+      this.scrollZoneVirtualList = scrollingHoc(ListWithRef);
       this.vStrength = createVerticalStrength(slideRegionSize);
       this.hStrength = createHorizontalStrength(slideRegionSize);
     }
@@ -920,6 +922,12 @@ ReactSortableTree.propTypes = {
 
   // rtl support
   rowDirection: PropTypes.string,
+
+  // scrollingComponent
+  scrollingComponent: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
 };
 
 ReactSortableTree.defaultProps = {
@@ -952,6 +960,7 @@ ReactSortableTree.defaultProps = {
   onDragStateChanged: () => {},
   onlyExpandSearchedNodes: false,
   rowDirection: 'ltr',
+  scrollingComponent: false,
 };
 
 polyfill(ReactSortableTree);
