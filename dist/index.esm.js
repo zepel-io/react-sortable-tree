@@ -2529,7 +2529,8 @@ function (_Component) {
         nodeContentRenderer = _mergeTheme.nodeContentRenderer,
         treeNodeRenderer = _mergeTheme.treeNodeRenderer,
         isVirtualized = _mergeTheme.isVirtualized,
-        slideRegionSize = _mergeTheme.slideRegionSize;
+        slideRegionSize = _mergeTheme.slideRegionSize,
+        scrollingComponent = _mergeTheme.scrollingComponent;
 
     _this.dndManager = new DndManager(_assertThisInitialized(_assertThisInitialized(_this))); // Wrapping classes for use with react-dnd
 
@@ -2541,7 +2542,8 @@ function (_Component) {
     _this.treeNodeRenderer = _this.dndManager.wrapTarget(treeNodeRenderer); // Prepare scroll-on-drag options for this list
 
     if (isVirtualized) {
-      _this.scrollZoneVirtualList = (createScrollingComponent || withScrolling)(ListWithRef);
+      var scrollingHoc = typeof scrollingComponent === 'function' ? scrollingComponent : createScrollingComponent || withScrolling;
+      _this.scrollZoneVirtualList = scrollingHoc(ListWithRef);
       _this.vStrength = createVerticalStrength(slideRegionSize);
       _this.hStrength = createHorizontalStrength(slideRegionSize);
     }
@@ -3303,7 +3305,9 @@ ReactSortableTree.propTypes = {
   // Specify that nodes that do not match search will be collapsed
   onlyExpandSearchedNodes: PropTypes.bool,
   // rtl support
-  rowDirection: PropTypes.string
+  rowDirection: PropTypes.string,
+  // scrollingComponent
+  scrollingComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
 ReactSortableTree.defaultProps = {
   canDrag: true,
@@ -3336,7 +3340,8 @@ ReactSortableTree.defaultProps = {
   theme: {},
   onDragStateChanged: function onDragStateChanged() {},
   onlyExpandSearchedNodes: false,
-  rowDirection: 'ltr'
+  rowDirection: 'ltr',
+  scrollingComponent: false
 };
 polyfill(ReactSortableTree);
 
