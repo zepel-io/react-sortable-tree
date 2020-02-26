@@ -2520,6 +2520,10 @@ var ListWithRef = React__default.forwardRef(function (listProps, parentRef) {
   }, rest));
 });
 
+var returnIfFn = function returnIfFn(prop) {
+  return typeof prop === 'function' ? prop : null;
+};
+
 var ReactSortableTree =
 /*#__PURE__*/
 function (_Component) {
@@ -2538,7 +2542,9 @@ function (_Component) {
         treeNodeRenderer = _mergeTheme.treeNodeRenderer,
         isVirtualized = _mergeTheme.isVirtualized,
         slideRegionSize = _mergeTheme.slideRegionSize,
-        scrollingComponent = _mergeTheme.scrollingComponent;
+        scrollingComponent = _mergeTheme.scrollingComponent,
+        verticalScrollStrengthFn = _mergeTheme.verticalScrollStrengthFn,
+        horizontalScrollStrengthFn = _mergeTheme.horizontalScrollStrengthFn;
 
     _this.dndManager = new DndManager(_assertThisInitialized(_assertThisInitialized(_this))); // Wrapping classes for use with react-dnd
 
@@ -2550,10 +2556,12 @@ function (_Component) {
     _this.treeNodeRenderer = _this.dndManager.wrapTarget(treeNodeRenderer); // Prepare scroll-on-drag options for this list
 
     if (isVirtualized) {
-      var scrollingHoc = typeof scrollingComponent === 'function' ? scrollingComponent : withScrolling.createScrollingComponent || withScrolling__default;
+      var scrollingHoc = returnIfFn(scrollingComponent) || withScrolling.createScrollingComponent || withScrolling__default;
       _this.scrollZoneVirtualList = scrollingHoc(ListWithRef);
-      _this.vStrength = withScrolling.createVerticalStrength(slideRegionSize);
-      _this.hStrength = withScrolling.createHorizontalStrength(slideRegionSize);
+      var verticalScrollStrength = returnIfFn(verticalScrollStrengthFn) || withScrolling.createVerticalStrength;
+      var horizontalScrollStrength = returnIfFn(horizontalScrollStrengthFn) || withScrolling.createHorizontalStrength;
+      _this.vStrength = verticalScrollStrength(slideRegionSize);
+      _this.hStrength = horizontalScrollStrength(slideRegionSize);
     }
 
     _this.state = {
@@ -3315,7 +3323,9 @@ ReactSortableTree.propTypes = {
   // rtl support
   rowDirection: PropTypes.string,
   // scrollingComponent
-  scrollingComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
+  scrollingComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  verticalScrollStrengthFn: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  horizontalScrollStrengthFn: PropTypes.oneOfType([PropTypes.func, PropTypes.bool])
 };
 ReactSortableTree.defaultProps = {
   canDrag: true,
@@ -3349,7 +3359,9 @@ ReactSortableTree.defaultProps = {
   onDragStateChanged: function onDragStateChanged() {},
   onlyExpandSearchedNodes: false,
   rowDirection: 'ltr',
-  scrollingComponent: false
+  scrollingComponent: false,
+  verticalScrollStrengthFn: false,
+  horizontalScrollStrengthFn: false
 };
 polyfill(ReactSortableTree);
 
