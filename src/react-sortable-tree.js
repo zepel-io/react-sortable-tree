@@ -93,6 +93,8 @@ const ListWithRef = React.forwardRef((listProps, parentRef) => {
   return (<List ref={forwardRef} {...rest} />);
 });
 
+const returnIfFn = (prop) => (typeof prop === 'function') ? prop : null;
+
 class ReactSortableTree extends Component {
   constructor(props) {
     super(props);
@@ -104,6 +106,8 @@ class ReactSortableTree extends Component {
       isVirtualized,
       slideRegionSize,
       scrollingComponent,
+      verticalScrollStrengthFn,
+      horizontalScrollStrengthFn,
     } = mergeTheme(props);
 
     this.dndManager = new DndManager(this);
@@ -120,10 +124,12 @@ class ReactSortableTree extends Component {
 
     // Prepare scroll-on-drag options for this list
     if (isVirtualized) {
-      const scrollingHoc = (typeof scrollingComponent === 'function') ? scrollingComponent : (createScrollingComponent || withScrolling);
+      const scrollingHoc = returnIfFn(scrollingComponent) || (createScrollingComponent || withScrolling);
       this.scrollZoneVirtualList = scrollingHoc(ListWithRef);
-      this.vStrength = createVerticalStrength(slideRegionSize);
-      this.hStrength = createHorizontalStrength(slideRegionSize);
+      const verticalScrollStrength = returnIfFn(verticalScrollStrengthFn) || createVerticalStrength;
+      const horizontalScrollStrength = returnIfFn(horizontalScrollStrengthFn) || createHorizontalStrength;
+      this.vStrength = verticalScrollStrength(slideRegionSize);
+      this.hStrength = horizontalScrollStrength(slideRegionSize);
     }
 
     this.state = {
@@ -928,6 +934,16 @@ ReactSortableTree.propTypes = {
     PropTypes.func,
     PropTypes.bool,
   ]),
+
+  verticalScrollStrengthFn: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
+
+  horizontalScrollStrengthFn: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.bool,
+  ]),
 };
 
 ReactSortableTree.defaultProps = {
@@ -961,6 +977,8 @@ ReactSortableTree.defaultProps = {
   onlyExpandSearchedNodes: false,
   rowDirection: 'ltr',
   scrollingComponent: false,
+  verticalScrollStrengthFn: false,
+  horizontalScrollStrengthFn: false,
 };
 
 polyfill(ReactSortableTree);
