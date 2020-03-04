@@ -7,6 +7,7 @@ import withScrolling, {
   createVerticalStrength,
   createHorizontalStrength,
 } from 'frontend-collective-react-dnd-scrollzone';
+import { throttle } from 'throttle-debounce';
 import { DndProvider, DndContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { polyfill } from 'react-lifecycles-compat';
@@ -153,7 +154,7 @@ class ReactSortableTree extends Component {
     this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
     this.moveNode = this.moveNode.bind(this);
     this.startDrag = this.startDrag.bind(this);
-    this.dragHover = this.dragHover.bind(this);
+    this.dragHover = throttle(500, this.dragHover.bind(this));
     this.endDrag = this.endDrag.bind(this);
     this.drop = this.drop.bind(this);
     this.handleDndMonitorChange = this.handleDndMonitorChange.bind(this);
