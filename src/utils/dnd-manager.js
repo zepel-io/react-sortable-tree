@@ -133,6 +133,7 @@ export default class DndManager {
 
     if (typeof this.customCanDrop === 'function') {
       const { node } = monitor.getItem();
+      console.log(node, targetDepth, dropTargetProps);
       const addedResult = memoizedInsertNode({
         treeData: this.treeData,
         newNode: node,
