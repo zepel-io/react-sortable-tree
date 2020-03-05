@@ -2375,6 +2375,7 @@ function () {
         var _monitor$getItem = monitor.getItem(),
             node = _monitor$getItem.node;
 
+        console.log(node, targetDepth, dropTargetProps);
         var addedResult = memoizedInsertNode({
           treeData: this.treeData,
           newNode: node,
