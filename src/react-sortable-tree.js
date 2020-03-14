@@ -154,7 +154,7 @@ class ReactSortableTree extends Component {
     this.toggleChildrenVisibility = this.toggleChildrenVisibility.bind(this);
     this.moveNode = this.moveNode.bind(this);
     this.startDrag = this.startDrag.bind(this);
-    this.dragHover = throttle(500, this.dragHover.bind(this));
+    this.dragHover = throttle(200, this.dragHover.bind(this));
     this.endDrag = this.endDrag.bind(this);
     this.drop = this.drop.bind(this);
     this.handleDndMonitorChange = this.handleDndMonitorChange.bind(this);
@@ -301,17 +301,7 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
-console.log('came here', {
-  treeData,
-  node,
-  treeIndex,
-  path,
-  nextPath: path,
-  nextTreeIndex: treeIndex,
-  prevPath,
-  prevTreeIndex,
-  nextParentNode,
-})
+
     this.props.onChange(treeData);
 
     this.props.onMoveNode({
@@ -427,6 +417,8 @@ console.log('came here', {
     ) {
       return;
     }
+
+    console.log(draggedDepth, draggedNode, draggedMinimumTreeIndex);
 
     this.setState(({ draggingTreeData, instanceProps }) => {
       // Fall back to the tree data if something is being dragged in from

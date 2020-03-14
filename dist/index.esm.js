@@ -2690,7 +2690,7 @@ function (_Component) {
     _this.toggleChildrenVisibility = _this.toggleChildrenVisibility.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.moveNode = _this.moveNode.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.startDrag = _this.startDrag.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.dragHover = throttle(500, _this.dragHover.bind(_assertThisInitialized(_assertThisInitialized(_this))));
+    _this.dragHover = throttle(200, _this.dragHover.bind(_assertThisInitialized(_assertThisInitialized(_this))));
     _this.endDrag = _this.endDrag.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.drop = _this.drop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleDndMonitorChange = _this.handleDndMonitorChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -2794,17 +2794,6 @@ function (_Component) {
           path = _insertNode.path,
           nextParentNode = _insertNode.parentNode;
 
-      console.log('came here', {
-        treeData: treeData,
-        node: node,
-        treeIndex: treeIndex,
-        path: path,
-        nextPath: path,
-        nextTreeIndex: treeIndex,
-        prevPath: prevPath,
-        prevTreeIndex: prevTreeIndex,
-        nextParentNode: nextParentNode
-      });
       this.props.onChange(treeData);
       this.props.onMoveNode({
         treeData: treeData,
@@ -2858,6 +2847,7 @@ function (_Component) {
         return;
       }
 
+      console.log(draggedDepth, draggedNode, draggedMinimumTreeIndex);
       this.setState(function (_ref6) {
         var draggingTreeData = _ref6.draggingTreeData,
             instanceProps = _ref6.instanceProps;
