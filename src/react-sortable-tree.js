@@ -301,7 +301,17 @@ class ReactSortableTree extends Component {
       expandParent: true,
       getNodeKey: this.props.getNodeKey,
     });
-
+console.log('came here', {
+  treeData,
+  node,
+  treeIndex,
+  path,
+  nextPath: path,
+  nextTreeIndex: treeIndex,
+  prevPath,
+  prevTreeIndex,
+  nextParentNode,
+})
     this.props.onChange(treeData);
 
     this.props.onMoveNode({

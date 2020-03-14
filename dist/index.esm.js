@@ -2794,6 +2794,17 @@ function (_Component) {
           path = _insertNode.path,
           nextParentNode = _insertNode.parentNode;
 
+      console.log('came here', {
+        treeData: treeData,
+        node: node,
+        treeIndex: treeIndex,
+        path: path,
+        nextPath: path,
+        nextTreeIndex: treeIndex,
+        prevPath: prevPath,
+        prevTreeIndex: prevTreeIndex,
+        nextParentNode: nextParentNode
+      });
       this.props.onChange(treeData);
       this.props.onMoveNode({
         treeData: treeData,
